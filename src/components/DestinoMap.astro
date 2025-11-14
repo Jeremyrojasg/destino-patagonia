@@ -1,0 +1,11 @@
+---
+interface Props {
+  latitude: number;
+  longitude: number;
+  title: string;
+}
+
+const { latitude, longitude, title } = Astro.props;
+---
+
+<div class="map-container h-[300px] w-full bg-slate-900 rounded-lg shadow-lg mb-6" data-lat={latitude} data-lng={longitude} data-title={title}></div>

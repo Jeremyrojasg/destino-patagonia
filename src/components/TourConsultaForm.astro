@@ -1,0 +1,149 @@
+---
+const { tourNombre, tourSlug, trasladosPrecio } = Astro.props;
+---
+
+<form
+  id="consulta-tour"
+  class="bg-green-50 p-8 rounded-lg"
+  onsubmit="return false;"
+>
+  <h3 class="text-2xl font-bold text-forest-green mb-6">Consultar este tour</h3>
+  
+  <div class="space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          required
+          class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-forest-green focus:border-transparent"
+        />
+      </div>
+      
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-forest-green focus:border-transparent"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="fecha" class="block text-sm font-medium text-gray-700 mb-1">Fecha preferida</label>
+        <input
+          type="date"
+          id="fecha"
+          name="fecha"
+          required
+          class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-forest-green focus:border-transparent"
+        />
+      </div>
+      
+      <div>
+        <label for="personas" class="block text-sm font-medium text-gray-700 mb-1">Número de personas</label>
+        <select
+          id="personas"
+          name="personas"
+          required
+          class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-forest-green focus:border-transparent"
+        >
+          <option value="">Seleccionar...</option>
+          {[1,2,3,4,5,6,7,8,9,10].map(n => (
+            <option value={n}>{n} {n === 1 ? 'persona' : 'personas'}</option>
+          ))}
+          <option value="mas">Más de 10 personas</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <input id="traslado-tour" type="checkbox" class="form-checkbox h-4 w-4 text-forest-green" />
+      <label for="traslado-tour" class="text-sm text-gray-700">Agregar servicio de traslado</label>
+      {trasladosPrecio && (
+        <span class="ml-auto text-sm text-gray-600">Desde: {trasladosPrecio.aeropuerto}</span>
+      )}
+    </div>
+
+    <div id="traslado-tour-fields" class="hidden space-y-3">
+      <div>
+        <label for="lugarArribo-tour" class="block text-sm font-medium text-gray-700 mb-1">Lugar de arribo</label>
+        <select id="lugarArribo-tour" name="lugarArribo" class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-forest-green focus:border-transparent">
+          <option value="">Seleccionar...</option>
+          <option value="Aeropuerto">Aeropuerto</option>
+          <option value="Terminal">Terminal</option>
+          <option value="Otro">Otro (ingresar dirección)</option>
+        </select>
+      </div>
+      <div id="direccion-tour-field" class="hidden">
+        <label for="direccion-tour" class="block text-sm font-medium text-gray-700 mb-1">Dirección de llegada</label>
+        <input id="direccion-tour" name="direccion" type="text" class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-forest-green focus:border-transparent" />
+      </div>
+    </div>
+
+    <div>
+      <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">Mensaje o consultas adicionales</label>
+      <textarea
+        id="mensaje"
+        name="mensaje"
+        rows="4"
+        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-forest-green focus:border-transparent"
+      ></textarea>
+    </div>
+
+    <div class="text-center">
+      <button
+        type="button"
+        id="btn-whatsapp-tour"
+        class="inline-block bg-forest-green text-white px-8 py-3 rounded-full font-semibold hover:bg-light-green hover:text-forest-green transition"
+      >
+        Enviar consulta por WhatsApp
+      </button>
+    </div>
+  </div>
+</form>
+
+<script define:vars={{ tourNombre, tourSlug }}>
+  const btn = document.getElementById('btn-whatsapp-tour');
+  const trasladoCheckbox = document.getElementById('traslado-tour');
+  const trasladoFields = document.getElementById('traslado-tour-fields');
+  const lugarSelect = document.getElementById('lugarArribo-tour');
+  const direccionField = document.getElementById('direccion-tour-field');
+
+  if (trasladoCheckbox && trasladoFields) {
+    trasladoCheckbox.addEventListener('change', () => {
+      trasladoFields.classList.toggle('hidden', !trasladoCheckbox.checked);
+    });
+  }
+
+  if (lugarSelect && direccionField) {
+    lugarSelect.addEventListener('change', () => {
+      direccionField.classList.toggle('hidden', lugarSelect.value !== 'Otro');
+    });
+  }
+
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const form = document.getElementById('consulta-tour');
+      if (!form) return;
+      const nombre = form.querySelector('#nombre')?.value || '-';
+      const email = form.querySelector('#email')?.value || '-';
+      const fecha = form.querySelector('#fecha')?.value || '-';
+      const personas = form.querySelector('#personas')?.value || '-';
+      const traslado = trasladoCheckbox.checked ? 'Sí' : 'No';
+      const lugar = trasladoCheckbox.checked ? (lugarSelect.value || '-') : '-';
+      const direccion = lugar === 'Otro' ? document.getElementById('direccion-tour').value || '-' : '-';
+      const mensaje = form.querySelector('#mensaje')?.value || '-';
+
+      const text = `Hola, me interesa el tour "${tourNombre}".\nFecha: ${fecha}.\nPersonas: ${personas}.\nTraslado: ${traslado}.\nLugar de arribo: ${lugar}.\nDirección: ${direccion}.\nNombre: ${nombre}.\nEmail: ${email}.\n${mensaje}`;
+      const url = `https://wa.me/5492945547115?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    });
+  }
+</script>

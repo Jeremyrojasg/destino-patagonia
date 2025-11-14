@@ -1,0 +1,130 @@
+---
+// ImageGallery.astro
+const { images } = Astro.props;
+---
+
+
+<div class="my-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="gallery-grid" data-images={JSON.stringify(images)}>
+    {images.map((image, index) => (
+      <button
+        type="button"
+        class="group relative overflow-hidden rounded-lg aspect-[4/3]"
+        data-index={index}
+      >
+        <img
+          src={image.url}
+          alt={image.alt}
+          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+          loading="lazy"
+        />
+        {image.caption && (
+          <div class="absolute inset-x-0 bottom-0 bg-black/60 text-white p-2 text-sm transform translate-y-full transition-transform group-hover:translate-y-0">
+            {image.caption}
+          </div>
+        )}
+      </button>
+    ))}
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div
+  id="lightbox"
+  class="fixed inset-0 bg-black/90 z-50 hidden"
+  tabindex="-1"
+>
+  <button
+    type="button"
+    id="prev-btn"
+    class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl p-4 hover:bg-white/10 rounded-full"
+  >
+    ←
+  </button>
+  <button
+    type="button"
+    id="next-btn"
+    class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl p-4 hover:bg-white/10 rounded-full"
+  >
+    →
+  </button>
+  <button
+    type="button"
+    id="close-btn"
+    class="absolute right-4 top-4 text-white text-2xl p-2 hover:bg-white/10 rounded-full"
+  >
+    ✕
+  </button>
+  <div class="h-full flex items-center justify-center p-4">
+    <img
+      id="lightbox-image"
+      src=""
+      alt=""
+      class="max-h-[90vh] max-w-[90vw] object-contain"
+    />
+  </div>
+  <div
+    id="lightbox-caption"
+    class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-center bg-black/60 px-4 py-2 rounded-full"
+  ></div>
+</div>
+
+<script is:inline>
+let currentIndex = 0;
+let images = [];
+
+function openLightbox(index) {
+  currentIndex = index;
+  updateLightboxImage();
+  document.getElementById('lightbox').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function updateLightboxImage() {
+  const image = images[currentIndex];
+  const imgEl = document.getElementById('lightbox-image');
+  const captionEl = document.getElementById('lightbox-caption');
+  imgEl.src = image.url;
+  imgEl.alt = image.alt;
+  captionEl.textContent = image.caption || '';
+}
+
+function nextImage(e) {
+  if (e) e.stopPropagation();
+  currentIndex = (currentIndex + 1) % images.length;
+  updateLightboxImage();
+}
+
+function previousImage(e) {
+  if (e) e.stopPropagation();
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  updateLightboxImage();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('gallery-grid');
+  images = JSON.parse(grid.getAttribute('data-images'));
+  grid.querySelectorAll('button[data-index]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      openLightbox(Number(btn.getAttribute('data-index')));
+    });
+  });
+  document.getElementById('close-btn').addEventListener('click', closeLightbox);
+  document.getElementById('next-btn').addEventListener('click', nextImage);
+  document.getElementById('prev-btn').addEventListener('click', previousImage);
+  document.getElementById('lightbox').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-image').addEventListener('click', e => e.stopPropagation());
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('lightbox').classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') previousImage();
+  });
+});
+</script>

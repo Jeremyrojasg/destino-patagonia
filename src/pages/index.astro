@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { destinos } from "../data/destinos";
+import LargeDestinoCard from "../components/LargeDestinoCard.astro";
+
+const topDestinos = [...destinos]
+  .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+  .slice(0, 5);
+---
+
+<BaseLayout title="Destino Patagonia - Microexcursiones en Esquel">
+  <section class="text-center py-10">
+    <h2 class="text-4xl font-bold mb-4 text-forest-green">Explorá la Patagonia con nosotros</h2>
+    <p class="text-lg mb-6">Microexcursiones personalizadas desde Esquel hacia los lugares más bellos de la región.</p>
+  </section>
+
+  <section class="mt-12">
+    <h3 class="sr-only">Destinos destacados</h3>
+    <div class="flex flex-col">
+      {topDestinos.map(destino => (
+        <LargeDestinoCard destino={destino} />
+      ))}
+    </div>
+
+    <div class="flex justify-center gap-4 mt-8">
+      <a href="/destinos" 
+         class="inline-block bg-forest-green text-white px-6 py-3 rounded-full font-semibold hover:bg-light-green hover:text-forest-green transition">
+         Explorá todos los destinos
+      </a>
+
+      <a href="https://wa.me/5492945547115" 
+         class="inline-block bg-white text-forest-green border border-forest-green px-6 py-3 rounded-full font-semibold hover:bg-forest-green hover:text-white transition">
+         Reservá por WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- Sección informativa de Traslados (opción 1: cliente-only + WhatsApp) -->
+  <section class="my-12 bg-green-50 p-8 rounded-lg">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-forest-green mb-4">Servicio de Traslados</h2>
+      <p class="text-lg text-gray-700 mb-6">Ofrecemos traslados desde y hacia aeropuertos o terminales hasta tu alojamiento. Reserva junto con tu tour o consúltanos por disponibilidad y precios.</p>
+
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+        <a href="/tours" class="inline-block bg-forest-green text-white px-6 py-3 rounded-full font-semibold hover:bg-light-green hover:text-forest-green transition">Ver tours</a>
+        <a href="https://wa.me/5492945547115?text=Hola,%20quisiera%20consultar%20por%20traslados" class="inline-block bg-white text-forest-green border border-forest-green px-6 py-3 rounded-full font-semibold hover:bg-forest-green hover:text-white transition">Consultar traslados</a>
+      </div>
+
+      <p class="text-sm text-gray-600 mt-6">Nota: El servicio de traslados se cotiza por destino y tipo de llegada (aeropuerto o terminal). Puedes solicitarlo desde la página de cada tour.</p>
+    </div>
+  </section>
+</BaseLayout>

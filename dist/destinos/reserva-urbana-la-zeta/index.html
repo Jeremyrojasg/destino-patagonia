@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Reserva Urbana La Zeta - Destino Patagonia</title><link rel="icon" type="image/svg+xml" href="/logo.svg"><link rel="stylesheet" href="/_astro/destinos.CGOCZKSX.css"></head> <body class="bg-white text-gray-800 font-sans"> <header class="flex items-center justify-between p-6 bg-forest-green text-white"> <a href="/" class="flex items-center space-x-2 hover:opacity-90 transition-opacity"> <img src="/logo.svg" alt="Destino Patagonia" class="w-12"> <h1 class="text-2xl font-semibold">Destino Patagonia</h1> </a> <nav class="space-x-6"> <a href="/" class="hover:text-light-green transition-colors">Inicio</a> <a href="/destinos" class="hover:text-light-green transition-colors">Destinos</a> <a href="/privacidad" class="hover:text-light-green transition-colors">Privacidad</a> </nav> </header> <main class="max-w-6xl mx-auto p-6">   <article class="max-w-6xl mx-auto px-4 py-12"> <header class="relative h-[60vh] mb-12"> <img src="/images/reserva-la-zeta.jpg" alt="Reserva Urbana La Zeta" class="w-full h-full object-cover rounded-lg"> <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent rounded-lg"></div> <div class="absolute bottom-8 left-8 text-white"> <h1 class="text-4xl md:text-5xl font-bold mb-4">Reserva Urbana La Zeta</h1> </div> </header> <div class="mb-12"> <h2 class="text-2xl font-bold mb-4">Ubicación</h2> <div class="map-container h-[300px] w-full bg-slate-900 rounded-lg shadow-lg mb-6" data-lat="-42.89506102488456" data-lng="-71.35019640804882" data-title="Reserva Urbana La Zeta"></div> <!-- Cargar Leaflet desde CDN y el script cliente que inicializa los mapas --> <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script> <script type="module" src="/scripts/destino-map.js" defer></script> </div> <div class="prose prose-lg max-w-none">                  <p class="text-xl text-gray-700 mb-8">Un espacio verde aledaño a la ciudad que protege flora local y ofrece senderos, miradores y áreas recreativas para la comunidad.</p> <div class="my-12"> <h2 class="text-3xl font-bold mb-6 text-forest-green">Historia</h2> <p class="text-lg text-gray-700 leading-relaxed">La Reserva Urbana La Zeta nació como respuesta a la necesidad de conservar remanentes de ecosistemas nativos dentro del área urbana. Iniciativas comunitarias y proyectos municipales trabajaron juntos para proteger estos espacios, que hoy son vitales para la biodiversidad local y para ofrecer a la comunidad un lugar de conexión con la naturaleza.</p> </div><div class="my-12"> <h2 class="text-3xl font-bold mb-6 text-forest-green">Galería de imágenes</h2> <div class="my-8"> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="gallery-grid" data-images="[{&#34;url&#34;:&#34;/images/lazeta-1.jpg&#34;,&#34;alt&#34;:&#34;Sendero en la reserva urbana&#34;,&#34;caption&#34;:&#34;Camino entre vegetación nativa&#34;},{&#34;url&#34;:&#34;/images/lazeta-2.jpg&#34;,&#34;alt&#34;:&#34;Mirador con vista a la ciudad&#34;,&#34;caption&#34;:&#34;Vista urbana desde la reserva&#34;},{&#34;url&#34;:&#34;/images/lazeta-3.jpg&#34;,&#34;alt&#34;:&#34;Area de picnic y recreo&#34;,&#34;caption&#34;:&#34;Espacios para la comunidad&#34;}]"> <button type="button" class="group relative overflow-hidden rounded-lg aspect-[4/3]" data-index="0"> <img src="/images/lazeta-1.jpg" alt="Sendero en la reserva urbana" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy"> <div class="absolute inset-x-0 bottom-0 bg-black/60 text-white p-2 text-sm transform translate-y-full transition-transform group-hover:translate-y-0"> Camino entre vegetación nativa </div> </button><button type="button" class="group relative overflow-hidden rounded-lg aspect-[4/3]" data-index="1"> <img src="/images/lazeta-2.jpg" alt="Mirador con vista a la ciudad" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy"> <div class="absolute inset-x-0 bottom-0 bg-black/60 text-white p-2 text-sm transform translate-y-full transition-transform group-hover:translate-y-0"> Vista urbana desde la reserva </div> </button><button type="button" class="group relative overflow-hidden rounded-lg aspect-[4/3]" data-index="2"> <img src="/images/lazeta-3.jpg" alt="Area de picnic y recreo" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy"> <div class="absolute inset-x-0 bottom-0 bg-black/60 text-white p-2 text-sm transform translate-y-full transition-transform group-hover:translate-y-0"> Espacios para la comunidad </div> </button> </div> </div> <!-- Lightbox --> <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden" tabindex="-1"> <button type="button" id="prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl p-4 hover:bg-white/10 rounded-full">
+←
+</button> <button type="button" id="next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl p-4 hover:bg-white/10 rounded-full">
+→
+</button> <button type="button" id="close-btn" class="absolute right-4 top-4 text-white text-2xl p-2 hover:bg-white/10 rounded-full">
+✕
+</button> <div class="h-full flex items-center justify-center p-4"> <img id="lightbox-image" src="" alt="" class="max-h-[90vh] max-w-[90vw] object-contain"> </div> <div id="lightbox-caption" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-center bg-black/60 px-4 py-2 rounded-full"></div> </div> <script>
+let currentIndex = 0;
+let images = [];
+
+function openLightbox(index) {
+  currentIndex = index;
+  updateLightboxImage();
+  document.getElementById('lightbox').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function updateLightboxImage() {
+  const image = images[currentIndex];
+  const imgEl = document.getElementById('lightbox-image');
+  const captionEl = document.getElementById('lightbox-caption');
+  imgEl.src = image.url;
+  imgEl.alt = image.alt;
+  captionEl.textContent = image.caption || '';
+}
+
+function nextImage(e) {
+  if (e) e.stopPropagation();
+  currentIndex = (currentIndex + 1) % images.length;
+  updateLightboxImage();
+}
+
+function previousImage(e) {
+  if (e) e.stopPropagation();
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  updateLightboxImage();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('gallery-grid');
+  images = JSON.parse(grid.getAttribute('data-images'));
+  grid.querySelectorAll('button[data-index]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      openLightbox(Number(btn.getAttribute('data-index')));
+    });
+  });
+  document.getElementById('close-btn').addEventListener('click', closeLightbox);
+  document.getElementById('next-btn').addEventListener('click', nextImage);
+  document.getElementById('prev-btn').addEventListener('click', previousImage);
+  document.getElementById('lightbox').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-image').addEventListener('click', e => e.stopPropagation());
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('lightbox').classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') previousImage();
+  });
+});
+</script> </div><div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12"> <div class="bg-green-50 p-6 rounded-lg"> <h2 class="text-2xl font-bold mb-4 text-forest-green">Qué incluye</h2> <ul class="list-disc list-inside space-y-2 text-gray-700"> <li>Transporte privado desde tu alojamiento</li> <li>Guía local especializado</li> <li>Refrigerio durante el recorrido</li> <li>Seguro de viajero</li> </ul> </div> <div class="bg-green-50 p-6 rounded-lg"> <h2 class="text-2xl font-bold mb-4 text-forest-green">Información importante</h2> <ul class="list-disc list-inside space-y-2 text-gray-700"> <li>Duración aproximada: 4-6 horas</li> <li>Dificultad: Baja a moderada</li> <li>Ideal para familias y grupos</li> <li>Disponible todo el año</li> </ul> </div> </div>  </div> <div class="mt-12 text-center"> <a href="https://wa.me/5492945547115" class="inline-block bg-forest-green text-white px-8 py-4 rounded-full font-semibold hover:bg-light-green hover:text-forest-green transition">
+Reservar esta excursión
+</a> </div> </article>  </main> <footer class="p-6 text-center bg-forest-green text-white mt-10">
+© 2025 Destino Patagonia. Todos los derechos reservados.
+</footer> </body></html>

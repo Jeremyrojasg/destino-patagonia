@@ -1,0 +1,60 @@
+---
+const { tour } = Astro.props;
+const destinos = tour.getDestinosCompletos();
+---
+
+<article
+  class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+  onclick={"if(!event.target.closest('a')) location.href='/tours/" + tour.slug + "'"}
+  role="button"
+  tabindex="0"
+  onkeydown={"if(event.key === 'Enter' && !event.target.closest('a')) location.href='/tours/" + tour.slug + "'"}
+>
+  <div class="relative h-64">
+    <img 
+      src={tour.imagen} 
+      alt={tour.nombre}
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+    {tour.trasladosAvailable && (
+      <div class="absolute top-4 right-4">
+        <span class="inline-block bg-forest-green text-white text-xs px-3 py-1 rounded-full shadow">
+          Traslados
+        </span>
+      </div>
+    )}
+    <div class="absolute bottom-4 left-4 text-white">
+      <h2 class="text-2xl font-bold">{tour.nombre}</h2>
+      <p class="text-sm mt-1">{tour.duracion}</p>
+    </div>
+  </div>
+
+  <div class="p-6">
+    <p class="text-gray-600 mb-4">{tour.descripcion}</p>
+    
+    <div class="mb-6">
+      <h3 class="text-lg font-semibold text-forest-green mb-2">Destinos incluidos:</h3>
+      <div class="flex flex-wrap gap-2">
+        {destinos.map(destino => (
+          <a
+            href={`/destinos/${destino.slug}`}
+            class="inline-block px-3 py-1 bg-green-50 text-forest-green rounded-full text-sm hover:bg-forest-green hover:text-white transition"
+          >
+            {destino.nombre}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <span class="text-forest-green font-semibold">{tour.precio}</span>
+      <a
+        href={`/tours/${tour.slug}`}
+        class="inline-block bg-forest-green text-white px-6 py-2 rounded-full font-semibold hover:bg-light-green hover:text-forest-green transition"
+      >
+        Ver detalles
+      </a>
+    </div>
+  </div>
+</article>

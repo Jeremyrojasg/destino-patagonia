@@ -1,0 +1,59 @@
+---
+const { frontmatter } = Astro.props;
+import BaseLayout from "./BaseLayout.astro";
+import DestinoMap from "../components/DestinoMap.astro";
+---
+
+<BaseLayout title={`${frontmatter?.title || ''} - Destino Patagonia`}>
+  <slot name="head" slot="head" />
+  <article class="max-w-7xl mx-auto px-4 py-12">
+    <header class="relative h-[60vh] mb-12">
+      <img
+        src={frontmatter.imagen}
+        alt={frontmatter.title}
+        class="w-full h-full object-cover rounded-lg"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent rounded-lg"></div>
+      <div class="absolute bottom-8 left-8 text-white">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{frontmatter.title}</h1>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+      <div class="lg:col-span-2">
+        <div class="prose prose-lg max-w-none">
+          <slot name="content" />
+        </div>
+      </div>
+
+      {frontmatter.coordinates && (
+        <div class="lg:sticky lg:top-8 h-fit">
+          <h2 class="text-2xl font-bold mb-4">Ubicación</h2>
+          <DestinoMap
+            latitude={frontmatter.coordinates.latitude}
+            longitude={frontmatter.coordinates.longitude}
+            title={frontmatter.title}
+          />
+          <!-- Cargar Leaflet desde CDN y el script cliente que inicializa los mapas -->
+          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+          <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+          <script type="module" src="/scripts/destino-map.js" defer></script>
+        </div>
+      )}
+    </div>
+
+    <!-- Default slot rendered full-width (gallery and other sections) -->
+    <div class="prose prose-lg max-w-none">
+      <slot />
+    </div>
+
+    <div class="mt-12 text-center">
+      <a
+        href="https://wa.me/5492945547115"
+        class="inline-block bg-forest-green text-white px-8 py-4 rounded-full font-semibold hover:bg-light-green hover:text-forest-green transition"
+      >
+        Reservar esta excursión
+      </a>
+    </div>
+  </article>
+</BaseLayout>

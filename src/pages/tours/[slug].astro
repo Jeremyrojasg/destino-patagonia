@@ -1,0 +1,125 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { tours, getTourBySlug } from "../../data/tours";
+import TourConsultaForm from "../../components/TourConsultaForm.astro";
+
+export function getStaticPaths() {
+  return tours.map(tour => ({
+    params: { slug: tour.slug },
+    props: { tour },
+  }));
+}
+
+const { tour } = Astro.props;
+const destinos = tour.getDestinosCompletos();
+---
+
+<BaseLayout title={`${tour.nombre} - Destino Patagonia`}>
+  <article class="max-w-7xl mx-auto px-4 py-12">
+    <header class="relative h-[60vh] mb-12">
+      <img
+        src={tour.imagenBanner || tour.imagen}
+        alt={tour.nombre}
+        class="w-full h-full object-cover rounded-lg"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent rounded-lg"></div>
+      <div class="absolute bottom-8 left-8 text-white">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{tour.nombre}</h1>
+        <p class="text-xl">{tour.duracion}</p>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2">
+        <section class="prose prose-lg max-w-none mb-12">
+          <p>{tour.descripcionLarga || tour.descripcion}</p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-forest-green mb-6">Destinos incluidos</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {destinos.filter(Boolean).map(destino => (
+              <a
+                href={`/destinos/${destino.slug}`}
+                class="group block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition"
+              >
+                <div class="relative h-48">
+                  <img
+                    src={destino.imagen}
+                    alt={destino.nombre}
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="text-xl font-semibold text-forest-green group-hover:text-light-green transition">
+                    {destino.nombre}
+                  </h3>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-3xl font-bold text-forest-green mb-6">Itinerario detallado</h2>
+          <div class="space-y-6">
+            {tour.itinerario.map(item => (
+              <div class="flex gap-4 items-start">
+                <div class="bg-forest-green text-white px-3 py-1 rounded-full text-sm whitespace-nowrap">
+                  {item.hora}
+                </div>
+                <div>
+                  <h3 class="font-semibold text-xl mb-1">{item.actividad}</h3>
+                  <p class="text-gray-600">{item.descripcion}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <div class="lg:space-y-8">
+        <aside class="bg-green-50 p-6 rounded-lg mb-8">
+          <h2 class="text-2xl font-bold text-forest-green mb-4">Información del tour</h2>
+          
+          <div class="space-y-6">
+            <div>
+              <h3 class="font-semibold mb-2">Horarios</h3>
+              <ul class="space-y-1 text-gray-600">
+                <li>Encuentro: {tour.horario.encuentro}</li>
+                <li>Inicio: {tour.horario.inicio}</li>
+                <li>Finalización: {tour.horario.fin}</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-semibold mb-2">Incluye</h3>
+              <ul class="list-disc list-inside space-y-1 text-gray-600">
+                {tour.incluye.map(item => <li>{item}</li>)}
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-semibold mb-2">Nivel de actividad</h3>
+              <ul class="space-y-1 text-gray-600">
+                <li>Dificultad: {tour.nivel.dificultad}</li>
+                <li>Esfuerzo físico: {tour.nivel.esfuerzoFisico}</li>
+                <li>Caminata: {tour.nivel.caminata}</li>
+                <li>Terreno: {tour.nivel.terreno}</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-semibold mb-2">Qué traer</h3>
+              <ul class="list-disc list-inside space-y-1 text-gray-600">
+                {tour.recomendaciones.map(item => <li>{item}</li>)}
+              </ul>
+            </div>
+          </div>
+        </aside>
+
+        <TourConsultaForm tourNombre={tour.nombre} tourSlug={tour.slug} />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+const { title = "Destino Patagonia" } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  </head>
+  <body class="bg-white text-gray-800 font-sans">
+    <header class="flex items-center justify-between p-6 bg-forest-green text-white">
+      <a href="/" class="flex items-center space-x-2 hover:opacity-90 transition-opacity">
+        <img src="/logo.svg" alt="Destino Patagonia" class="w-12" />
+        <h1 class="text-2xl font-semibold">Destino Patagonia</h1>
+      </a>
+      <nav class="space-x-6">
+        <a href="/" class="hover:text-light-green transition-colors">Inicio</a>
+        <a href="/tours" class="hover:text-light-green transition-colors">Tours</a>
+        <a href="/destinos" class="hover:text-light-green transition-colors">Destinos</a>
+        <a href="/privacidad" class="hover:text-light-green transition-colors">Privacidad</a>
+      </nav>
+    </header>
+    <main class="max-w-6xl mx-auto p-6">
+      <slot />
+    </main>
+    <footer class="p-6 text-center bg-forest-green text-white mt-10">
+      © 2025 Destino Patagonia. Todos los derechos reservados.
+    </footer>
+  </body>
+</html>

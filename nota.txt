@@ -1,0 +1,44 @@
+Estado de características:
+✓ = Completado
+🔄 = En progreso
+✗ = Pendiente
+
+Servicios actuales:
+✗ Traslados aeropuerto a la ciudad
+    -- Terminal a hospedaje
+✗ Tours básicos
+    -- Cascada | Molino | Viñedo
+
+Características por implementar:
+
+1. Sistema de ratings dinámico ✗
+    -- Permitir a los usuarios votar por destinos
+    -- Almacenar votos en localStorage o implementar API
+    -- Mostrar promedio de ratings en tiempo real
+
+2. Mejoras visuales ✗
+    -- Agregar iconos de estrellas para mostrar ratings
+    -- Animaciones suaves al hacer hover en las tarjetas
+    -- Implementar lazy loading para imágenes
+
+3. Funcionalidades sociales ✗
+    -- Agregar botón para compartir en redes sociales
+    -- Sistema de comentarios por destino
+    -- Galería de fotos enviadas por usuarios
+
+4. Optimizaciones ✗
+    -- Implementar cache para datos de destinos
+    -- Optimizar imágenes con diferentes tamaños
+    -- Agregar meta tags para SEO
+
+5. Nuevas características
+    -- Filtros por tipo de actividad ✗
+    -- Mapa interactivo de destinos ✓
+       - Implementación por destino (componente `DestinoMap`, CDN Leaflet y `public/scripts/destino-map.js`)
+    -- Calendario de disponibilidad ✗
+    -- Sistema de reservas básico ✗
+
+Pendientes específicas:
+        - (3) Agregar checkbox de 'Agregar traslado' en la página de detalle de Tour (pendiente)
+            -- Mostrar opciones: Aeropuerto / Terminal / Otro (dirección)
+            -- Incluir selección en el mensaje de consulta (WhatsApp)

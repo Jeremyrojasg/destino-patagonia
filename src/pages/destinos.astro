@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DestinosGrid from "../components/DestinosGrid.astro";
+---
+
+<BaseLayout title="Todos los destinos - Destino Patagonia">
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-forest-green mb-4">Nuestros Destinos</h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Descubre los lugares más hermosos de la Patagonia Argentina. Cada destino tiene su propia historia y magia para compartir.
+      </p>
+    </header>
+
+    <DestinosGrid />
+
+    <div class="text-center mt-12">
+      <a
+        href="https://wa.me/5492945547115"
+        class="inline-block bg-forest-green text-white px-8 py-4 rounded-full font-semibold hover:bg-light-green hover:text-forest-green transition"
+      >
+        Reserva tu excursión
+      </a>
+    </div>
+  </div>
+</BaseLayout>
